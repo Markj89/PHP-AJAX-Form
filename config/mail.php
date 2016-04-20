@@ -1,14 +1,15 @@
 <?php
 $recipient = "";
 
-$errors = [];
+//All arrays must be array() instead of [] Local testing is more relaxed and if use [] on your live site, you'll get a 500 (Internal Server Error)
+$errors = array();
 if (isset($_POST['name'], $_POST['email'], $_POST['message']) ) {
-    $fields = [
+    $fields = array(
       "name"      => strip_tags(trim($_POST["name"])), 
       "email"     => stripcslashes(trim($_POST["email"])),
       "message"   => strip_tags($_POST["message"])
-    ];
-
+    );
+    // Error handling
     foreach ($fields as $key => $val) {
         if (empty($_POST["name"])) {
             $errors['name'] = "Please provide your name";  
@@ -26,7 +27,7 @@ if (isset($_POST['name'], $_POST['email'], $_POST['message']) ) {
             $errors['email'] = "Invalid email format";
         }
     }
-
+    
     if (!empty($errors)) {
         $array = array('errors' => true, 'fields' => $errors);
     } else {
